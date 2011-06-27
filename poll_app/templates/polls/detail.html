@@ -1,0 +1,23 @@
+<h1>{{ poll.question }}</h1>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+{% if not poll.votable %}
+<ul>
+{% for choice in poll.choice_set.all %}
+    <li>{{ choice.choice }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+{% endfor %}
+</ul>
+{% else %}
+<form action="/{{ poll.id }}/vote/" method="post">
+    {% csrf_token %}
+    {% for choice in poll.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+    <label for="choice{{ forloop.counter }}">{{ choice.choice }}</label><br />
+    {% endfor %}
+    <input type="submit" value="ОК" />
+</form>
+{% endif %}
+Встроить на свой сайт:
+<textarea><iframe src="http://{{full_path}}" width="300" height="300">
+  <p>Your browser does not support iframes.</p></iframe></textarea>

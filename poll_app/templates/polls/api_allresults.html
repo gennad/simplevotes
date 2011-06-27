@@ -1,0 +1,9 @@
+{% for poll in polls %}
+    <h1>{{ poll.question }}</h1>
+    <ul>
+        {% for choice in poll.choice_set.all %}
+        <li>{{ choice.choice }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+<a onclick="history.go(-1)">Назад</a>

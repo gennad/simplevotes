@@ -1,0 +1,13 @@
+{% if active_poll %}
+<h1>Активный опрос</h1>
+<li><a href="/{{ active_poll.id }}/">{{ active_poll.question }}</a></li>
+{% endif %}
+{% if not_active_polls %}
+<h1>Неактивные опросы</h1>
+<ul>
+    {% for poll in not_active_polls %}
+    <li><a href="/{{ poll.id }}/">{{ poll.question }}</a></li>
+    {% endfor %}
+</ul>
+    <h2><a href="/allresults/">Посмотреть результаты</a></h2>
+{% endif %}
